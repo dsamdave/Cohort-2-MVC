@@ -1,12 +1,16 @@
 const express = require("express")
 const connectDB = require("./db")
 const dotenv = require("dotenv").config()
+const cors = require("cors")
 const authRouter = require("./routes/authRoutes")
+const { handleExaple } = require("./controllers/testCtrl")
+const exampleRoutes = require("./routes/exampleRoutes")
 
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 
 // DAtabaes
@@ -26,3 +30,25 @@ app.get("/", (req, res)=> {
 
 
 app.use("/api", authRouter)
+
+
+
+app.use("/api", exampleRoutes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.use((req, res)=>{
+    return res.status(200).json({message: "Sorry this endpoint does not exist."})
+
+})
